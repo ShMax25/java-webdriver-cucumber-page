@@ -35,6 +35,7 @@ public class Page {
     }
 
     public void click(WebElement element) {
+        waitForClickable(element);
         try {
             element.click();
         } catch (WebDriverException e) {
@@ -49,6 +50,18 @@ public class Page {
 
     public void waitForVisible(WebElement element) {
         getWait().until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public void waitForClickable(WebElement element) {
+        getWait().until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public void switchToFrameByName(String name) {
+        getDriver().switchTo().frame(name);
+    }
+
+    public void switchToDefaultContent() {
+        getDriver().switchTo().defaultContent();
     }
 
 }

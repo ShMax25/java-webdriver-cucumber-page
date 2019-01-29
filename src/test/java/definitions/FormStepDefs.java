@@ -29,6 +29,7 @@ public class FormStepDefs {
         assertThat(form.isConfirmPasswordDisabled()).isFalse();
         form.fillConfirmPassword(data.get("password"));
         form.fillName(data.get("firstName"), data.get("lastName"));
+        form.fillContactNameAndPhone(data.get("contactName"), data.get("contactPhone"));
         form.clickPrivacyPolicy();
     }
 
@@ -47,6 +48,8 @@ public class FormStepDefs {
         assertThat(resultText).contains(data.get("email"));
         assertThat(resultText).contains(data.get("firstName"));
         assertThat(resultText).contains(data.get("lastName"));
+        assertThat(resultText).contains(data.get("contactName"));
+        assertThat(resultText).contains(data.get("contactPhone"));
 
         assertThat(result.getPassword()).doesNotContain(data.get("password"));
         assertThat(result.getPrivacyPolicy()).isEqualTo("true");

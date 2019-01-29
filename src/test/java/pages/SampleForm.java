@@ -36,21 +36,34 @@ public class SampleForm extends Page {
     @FindBy(xpath = "//input[@id='firstName']")
     private WebElement firstName;
 
+    @FindBy(xpath = "//input[@id='middleName']")
+    private WebElement middleName;
+
     @FindBy(xpath = "//input[@id='lastName']")
     private WebElement lastName;
 
     @FindBy(xpath = "//span[contains(text(),'Save')]")
     private WebElement saveButton;
 
-
     @FindBy(xpath = "//input[@name='agreedToPrivacyPolicy']")
     private WebElement privacyPolicy;
 
+    @FindBy(xpath = "//input[@name='contactPersonName']")
+    private WebElement contactPersonName;
+
+    @FindBy(xpath = "//input[@id='contactPersonPhone']")
+    private WebElement contactPersonPhone;
+
+    public void fillContactNameAndPhone(String name, String phone) {
+        switchToFrameByName("additionalInfo");
+        sendKeys(contactPersonName, name);
+        sendKeys(contactPersonPhone, phone);
+        switchToDefaultContent();
+    }
 
     public WebElement clickGetDate(String date) {
         return getDriver().findElement(By.xpath("//input[text()='" + date + "']"));
     }
-
 
     public void fillUsername(String value) {
         sendKeys(username, value);
@@ -71,6 +84,14 @@ public class SampleForm extends Page {
     public void fillName(String firstName, String lastName) {
         click(name);
         sendKeys(this.firstName, firstName);
+        sendKeys(this.lastName, lastName);
+        click(saveButton);
+    }
+
+    public void fillName(String firstName, String middleName, String lastName) {
+        click(name);
+        sendKeys(this.firstName, firstName);
+        sendKeys(this.middleName, middleName);
         sendKeys(this.lastName, lastName);
         click(saveButton);
     }
