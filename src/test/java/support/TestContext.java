@@ -40,6 +40,14 @@ public class TestContext {
         return yaml.load(stream);
     }
 
+    public static HashMap<String, String> getRecruiter() throws Exception {
+        return getData("recruiter");
+    }
+
+    public static HashMap<String, String> getPosition() throws Exception {
+        return getData("position");
+    }
+
     public static HashMap<String, String> getSample() throws Exception {
         return getData("sample");
     }
