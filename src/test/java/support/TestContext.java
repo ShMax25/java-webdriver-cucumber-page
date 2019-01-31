@@ -21,23 +21,43 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TestContext {
 
     private static WebDriver driver;
+    private static HashMap<String, String> testData = new HashMap<>();
+
+    public static void setTestData(String key, String value) {
+        testData.put(key, value);
+    }
+
+    public static String getTestData(String key) {
+        return testData.get(key);
+    }
 
     public static WebDriverWait getWait() {
         return new WebDriverWait(getDriver(), 5);
     }
 
-    private static HashMap<String, String> getData(String fileName) throws Exception {
+    public static String addTimestamp(String value) {
+        String timestamp = new SimpleDateFormat(" yyyy.MM.dd.HH.mm.ss").format(new Date());
+        return value + timestamp;
+    }
+
+    public static HashMap<String, String> getData(String fileName) throws Exception {
         String path = System.getProperty("user.dir") + "/src/test/resources/config/" + fileName +".yml";
         File sender = new File(path);
         InputStream stream = new FileInputStream(sender);
         Yaml yaml = new Yaml();
         return yaml.load(stream);
+    }
+
+    public static HashMap<String, String> getPosition() throws Exception {
+        return getData("position");
     }
 
     public static HashMap<String, String> getRecruiter() throws Exception {
