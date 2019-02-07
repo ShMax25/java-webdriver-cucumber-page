@@ -24,3 +24,7 @@
       When I apply for a new job
       Then I see position marked as applied
       And I see position in my jobs
+
+    @careers4
+    Scenario: REST api
+      Given I login to REST as "recruiter"

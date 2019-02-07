@@ -5,6 +5,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pages.*;
+import support.RestWrapper;
 import support.TestContext;
 import java.util.HashMap;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -67,5 +68,11 @@ public class CareersStepDefs {
     public void iVerifyPositionCreated() throws Exception {
         boolean isPresent = new RecruitPage().isPositionPresentOnPage(TestContext.getTestData("positionTitle"));
         assertThat(isPresent).isTrue();
+    }
+
+    @Given("^I login to REST as \"([^\"]*)\"$")
+    public void iLoginToRESTAs(String role) throws Throwable {
+        HashMap<String, String> user = getData(role);
+        new RestWrapper().login(user);
     }
 }
