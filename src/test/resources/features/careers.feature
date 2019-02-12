@@ -9,7 +9,7 @@
       When I create new position
       And I verify position created
 
-    @careers2
+    @careers2 @create_position @regression
     Scenario: Careers candidate scenario
       Given I open "careers" page
       And I apply to a new position
@@ -25,6 +25,11 @@
       Then I see position marked as applied
       And I see position in my jobs
 
-    @careers4
+    @careers4 @regression
     Scenario: REST api
       Given I login to REST as "recruiter"
+      When I create via REST new position
+      Then I verify via REST new position in the list
+      And I update via REST new position
+      Then I verify via REST position details
+      And I delete via REST new position

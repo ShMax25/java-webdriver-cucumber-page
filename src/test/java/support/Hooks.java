@@ -8,7 +8,16 @@ import org.openqa.selenium.TakesScreenshot;
 
 import java.util.concurrent.TimeUnit;
 
+import static support.TestContext.getPosition;
+import static support.TestContext.getRecruiter;
+
 public class Hooks {
+
+    @Before(value = "@create_position", order = 1)
+    public void createPosition() throws Exception {
+        new RestWrapper().login(getRecruiter()).createPosition(getPosition());
+
+    }
 
     @Before(order = 0)
     public void scenarioStart() {
