@@ -16,7 +16,7 @@
       Then I verify profile is created
       And I see position in my jobs
 
-    @careers2
+    @careers3
     Scenario: Careers adds new job
       Given I open "careers" page
       And I login as "candidate"

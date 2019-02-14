@@ -10,6 +10,8 @@ import com.mashape.unirest.request.body.RequestBodyEntity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,6 +43,13 @@ public class RestWrapper {
     }
 
     public JSONObject createPosition(HashMap<String, String> position) throws UnirestException {
+
+        String dateOpen = position.get("dateOpen");
+        String dateOpenISO = new SimpleDateFormat("yyyy-MM-dd").format(new Date(dateOpen));
+        // workaround for the issue that always displays the time
+        dateOpenISO = dateOpenISO + "T05:00:00.000Z";
+        position.put("dateOpen", dateOpenISO);
+
         JSONObject positionJson = new JSONObject(position);
         RequestBodyEntity request = Unirest.post(baseUrl + POSITIONS)
                 .header(CONTENT_TYPE, JSON)

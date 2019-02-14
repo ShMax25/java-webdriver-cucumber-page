@@ -10,6 +10,8 @@ import pages.*;
 import support.RestWrapper;
 import support.TestContext;
 import java.util.HashMap;
+import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static support.TestContext.*;
 
@@ -123,9 +125,19 @@ public class CareersStepDefs {
 
     @Then("^I verify via REST position details$")
     public void iVerifyViaRESTPositionDetails() throws Exception {
-        int positionId = getJsonTestData(RestWrapper.POSITION).getInt("id");
-        new RestWrapper().getPositionById(positionId);
+        JSONObject expectedPosition = getJsonTestData(RestWrapper.POSITION);
+        int positionId = expectedPosition.getInt("id");
+        JSONObject actualPosition = new RestWrapper().getPositionById(positionId);
 
-        // verifications
+        Set<String> keys = expectedPosition.keySet();
+        for (String key : keys) {
+            System.out.println();
+            System.out.println("Actual: " + actualPosition.get(key));
+            System.out.println("Expected: " + expectedPosition.get(key));
+            assertThat(actualPosition.get(key).equals(expectedPosition.get(key))).isTrue();
+        }
+
+
+
     }
 }
